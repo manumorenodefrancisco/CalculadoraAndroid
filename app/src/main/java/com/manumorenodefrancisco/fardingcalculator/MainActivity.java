@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void seleccionarOperador(String op) {
-        // Guarda el primer número
         try {
             primerNumero = Float.parseFloat(solutionTv.getText().toString());
         } catch (Exception e) {
@@ -95,22 +94,26 @@ public class MainActivity extends AppCompatActivity {
 
         float resultado = 0f;
 
-        switch (operador) {
-            case "+": resultado = primerNumero + segundoNumero; break;
-            case "-": resultado = primerNumero - segundoNumero; break;
-            case "*": resultado = primerNumero * segundoNumero; break;
-            case "/":
-                if (segundoNumero == 0f) {
-                    resultTv.setText("Error");
-                    return;
-                }
-                resultado = primerNumero / segundoNumero;
-                break;
+        if (operador.equals("+")) {
+            resultado = primerNumero + segundoNumero;
+        } else if (operador.equals("-")) {
+            resultado = primerNumero - segundoNumero;
+        } else if (operador.equals("*")) {
+            resultado = primerNumero * segundoNumero;
+        } else if (operador.equals("/")) {
+            if (segundoNumero == 0f) {
+                resultTv.setText("Error");
+                solutionTv.setText("");
+                operador = "";
+                return;
+            }
+            resultado = primerNumero / segundoNumero;
         }
 
         resultTv.setText(String.valueOf(resultado));
         solutionTv.setText(String.valueOf(resultado));
         operador = "";
+        //esperandoSegundoNumero = true;
     }
 
     private void calcularPorcentaje() {
